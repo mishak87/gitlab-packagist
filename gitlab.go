@@ -99,11 +99,12 @@ func (g *GitLab) call(resource string, result interface{}, args *Arguments) erro
 
 	url := g.Url + resource + "?" + p.Encode()
 	r, err := g.Client.Get(url)
-	defer r.Body.Close()
-
 	if err != nil {
 		return err
-	} else if r.StatusCode == 404 {
+	}
+	defer r.Body.Close()
+
+	if r.StatusCode == 404 {
 		return ErrNotFound
 
 	} else if r.StatusCode != 200 {
