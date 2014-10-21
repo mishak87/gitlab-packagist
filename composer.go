@@ -75,7 +75,9 @@ func (c *ComposerRepository) Update() error {
 func (c *ComposerRepository) generateContent() error {
 	c.RWMutex.Lock()
 	defer c.RWMutex.Unlock()
-	b, err := json.Marshal(c.cache)
+	b, err := json.Marshal(map[string]interface{}{
+		"packages": c.cache,
+	})
 	if err != nil {
 		return err
 	}
