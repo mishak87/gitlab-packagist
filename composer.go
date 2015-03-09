@@ -167,11 +167,9 @@ func (c *ComposerRepository) refreshProjectReference(p *Project, r *Reference) {
 }
 
 func (c *ComposerRepository) parseVersion(r string) string {
-	if r == "master" {
-		return "dev-master"
-	} else if c.versionRegexp.MatchString(r) {
+	if c.versionRegexp.MatchString(r) {
 		return r
 	}
 
-	return ""
+	return "dev-"+r
 }
